@@ -1,0 +1,7 @@
+[user]
+	name = Valery Tropin
+	email = tropin.tropin@gmail.com
+[core]
+	editor = nano
+[init]
+	defaultBranch = main
