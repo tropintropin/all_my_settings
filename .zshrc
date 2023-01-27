@@ -96,8 +96,19 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Config aliases
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias bashconfig="nvim ~/.bashrc"
+alias gitconfig="nvim ~/.gitconfig"
+alias tmuxconfig="nvim ~/.tmux.conf"
 
+# Python aliases
 alias python="python3"
+
+# Git aliases
+alias GS='git status'
+alias GP='git push'
+alias GPR='git pull --rebase'
+alias GA='git add'
+alias GCM='git commit -m'
