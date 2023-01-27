@@ -2,6 +2,12 @@
 	name = Valery Tropin
 	email = tropin.tropin@gmail.com
 [core]
-	editor = nano
+	editor = nvim 
 [init]
 	defaultBranch = main
+[alias]
+	GS = status
+	GP = push
+	GPR = pull --rebase
+	GA = add
+	GCM = commit -m
