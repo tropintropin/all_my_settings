@@ -26,7 +26,7 @@ ZSH_THEME="robbyrussell"
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
 # zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
 # zstyle ':omz:update' frequency 13
@@ -82,11 +82,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='vim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -103,12 +103,28 @@ alias bashconfig="nvim ~/.bashrc"
 alias gitconfig="nvim ~/.gitconfig"
 alias tmuxconfig="nvim ~/.tmux.conf"
 
-# Python aliases
-alias python="python3"
+# batcat alias
+alias bat='batcat'
 
 # Git aliases
 alias GS='git status'
+alias GSW='git swich'
 alias GP='git push'
+alias GF='git fetch'
 alias GPR='git pull --rebase'
 alias GA='git add'
+alias GC='git commit'
 alias GCM='git commit -m'
+
+# ls alias
+alias l='ls -laF'
+
+# Python aliases
+alias python="python3"
+
+# Tmux aliases
+alias TMKS='tmux kill-server'
+alias TMK='tmux kill-session -t'
+alias TMATMN='tmux attach || tmux new'
+alias TMA='tmux attach'
+alias TMN='tmux new'
