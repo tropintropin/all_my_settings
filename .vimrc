@@ -1,231 +1,160 @@
-set nocompatible
-filetype off
+" Файл настроек для текстового редактора Vim/Neovim
+" Составил Валерий Тропин
+" tropin.one
+"
+" Источники:
+" https://github.com/VundleVim/Vundle.vim#quick-start
+" https://r-notes.ru/48-knigi/rukovodstvo-polzovatelya-vim/122-nastrojki.html
+" Некоторые комментарии в коде сгенерированы с помощью ChatGPT May 24 Version:
+" https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
+
+" SETTINGS FROM VUNDLE:
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-call vundle#end()
-filetype plugin indent on
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
 
-" Bail out if something that ran earlier, e.g. a system wide vimrc, does not
-" want Vim to use these default values.
-if exists('skip_defaults_vim')
-  finish
-endif
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-" Use Vim settings, rather than Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-" Avoid side effects when it was already reset.
-if &compatible
-  set nocompatible
-endif
-
-" When the +eval feature is missing, the set command above will be skipped.
-" Use a trick to reset compatible only when the +eval feature is missing.
-silent! while 0
-  set nocompatible
-silent! endwhile
-
-" Settings from: https://pythonist.ru/vim-kak-sreda-razrabotki-python
-
-" включить подсветку синтаксиса
-syntax enable
-
-" показывать номера строк
-set number
-
-" установить tab равным 4 пробелам
-set ts=4
-
-" отступ при переходе на следующую строку при написании кода
-set autoindent
-
-" преобразование tab-ов в пробелы
-set expandtab
-
-" при использовании команд >> или << сдвигать строки на 4 пробела
-set shiftwidth=4
-
-" выделять строку, на которой находится курсор
-set cursorline
-
-" показывать парную скобку для [] {} и ()
-set showmatch
-
-" включить подсветку синтаксиса Python
-let python_highlight_all = 1
-
-" Settings list from: https://losst.ru/nastrojka-vim
-
-set expandtab
-set smarttab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-set foldcolumn=2
-
-set mouse=a
-
-set hlsearch
-
-set incsearch
-
-" Allow backspacing over everything in insert mode.
+" MY SETTINGS
+" 
+" Automatically reload the Vim configuration after saving
+" Автоматически перезагружать конфигурацию Vim после сохранения
+autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+" Enable auto-reading of files
+" Включить автоматическое обновление файлов
+set autoread
+" Enable confirmation before executing some dangerous commands
+" Включить подтверждение перед выполнением некоторых опасных команд
+set confirm
+" Configure Backspace behavior
+" Настройка поведения клавиши Backspace для удаления отступов (indent),
+" перевода каретки (eol) и перемещения к началу предыдущих строк (start)
 set backspace=indent,eol,start
-
-set history=200		" keep 200 lines of command line history
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set wildmenu		" display completion matches in a status line
-
-set ttimeout		" time out for key codes
-set ttimeoutlen=100	" wait up to 100ms after Esc for special key
-
-" Show @@@ in the last line if it is truncated.
-set display=truncate
-
-" Show a few lines of context around the cursor.  Note that this makes the
-" text scroll if you mouse-click near the start or end of the window.
-set scrolloff=5
-
-" Do incremental searching when it's possible to timeout.
-if has('reltime')
-  set incsearch
-endif
-
-" Do not recognize octal numbers for Ctrl-A and Ctrl-X, most users find it
-" confusing.
-set nrformats-=octal
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries.
-if has('win32')
-  set guioptions-=t
-endif
-
-" Don't use Ex mode, use Q for formatting.
-" Revert with ":unmap Q".
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-" Revert with ":iunmap <C-U>".
-inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine.  By enabling it you
-" can position the cursor, Visually select and scroll with the mouse.
-" Only xterm can grab the mouse events when using the shift key, for other
-" terminals use ":", select text and press Esc.
-if has('mouse')
-  if &term =~ 'xterm'
-    set mouse=a
-  else
-    set mouse=nvi
-  endif
-endif
-
-" Only do this part when Vim was compiled with the +eval feature.
-if 1
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  " Revert with ":filetype off".
-  filetype plugin indent on
-
-  " Put these in an autocmd group, so that you can revert them with:
-  " ":augroup vimStartup | exe 'au!' | augroup END"
-  augroup vimStartup
-    au!
-
-    " When editing a file, always jump to the last known cursor position.
-    " Don't do it when the position is invalid, when inside an event handler
-    " (happens when dropping a file on gvim) and for a commit message (it's
-    " likely a different one than last time).
-    autocmd BufReadPost *
-      \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-      \ |   exe "normal! g`\""
-      \ | endif
-
-  augroup END
-
-  " Quite a few people accidentally type "q:" instead of ":q" and get confused
-  " by the command line window.  Give a hint about how to get out.
-  " If you don't like this you can put this in your vimrc:
-  " ":augroup vimHints | exe 'au!' | augroup END"
-  augroup vimHints
-    au!
-    autocmd CmdwinEnter *
-	  \ echohl Todo | 
-	  \ echo 'You discovered the command-line window! You can close it with ":q".' |
-	  \ echohl None
-  augroup END
-
-endif
-
-" Switch syntax highlighting on when the terminal has colors or when using the
-" GUI (which always has colors).
+" Enable auto-indentation
+" Включить автоматическое выравнивание как у предыдущей строки
+set autoindent
+" Set command history size to 100
+" Установить размер истории команд на 100
+set history=100
+" Enable status line (ruler)
+" Включить строку статуса (линейку) в нижней части окна Vim
+set ruler
+" Define a custom statusline format
+" Определить пользовательский формат строки статуса
+set statusline=%F%m%r%h%w\ [FF,FE,TE=%{&fileformat},%{&fileencoding},%{&encoding}\]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+" Set the appearance of the status line for different interfaces
+" Установить внешний вид строки статуса для различных интерфейсов
+hi StatusLine gui=reverse cterm=reverse
+" Set the appearance of SpellBad highlighting
+" Установить внешний вид подсветки для неправильно написанных слов
+highlight SpellBad ctermfg=Black ctermbg=Red
+" Show command in the status line
+" Отображать текущую команду в строке статуса
+set showcmd
+" Automatically save the view when leaving a buffer
+" Автоматически сохранять вид при закрытии буфера
+au BufWinLeave *.* silent mkview
+" Automatically load the view when entering a buffer
+" Автоматически восстанавливать вид при открытии буфера
+au BufWinEnter *.* silent loadview
+" Enable incremental search
+" Включить инкрементальный поиск
+set incsearch
+" Map 'p' key in Visual mode to paste from a register
+" При нажатии 'p' в режиме визуального выделения на место выделенного
+" текста будет вставлено содержимое регистра '"'
+vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
+" Enable syntax highlighting and search highlighting based on color support and GUI presence
+" Включить подсветку синтаксиса и выделение результатов поиска на основе поддержки цветовой схемы и GUI
 if &t_Co > 2 || has("gui_running")
-  " Revert with ":syntax off".
   syntax on
-
-  " I like highlighting strings inside C comments.
-  " Revert with ":unlet c_comment_strings".
-  let c_comment_strings=1
+  set hlsearch
 endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-" Revert with: ":delcommand DiffOrig".
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
-
-if has('langmap') && exists('+langremap')
-  " Prevent that the langmap option applies to characters that result from a
-  " mapping.  If set (default), this may break plugins (but it's backward
-  " compatible).
-  set nolangremap
-endif
-
-" Install vim-plug if not found
-if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-endif
-
-" Run PlugInstall if there are missing plugins
-autocmd VimEnter * if len(filter(values(g:plugs), 
-'!isdirectory(v:val.dir)'))
-  \| PlugInstall --sync | source $MYVIMRC
-\| endif
-
-let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
-if empty(glob(data_dir . '/autoload/plug.vim'))
-  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  
-https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-call plug#begin('~/.vim/plugged')
-" The default plugin directory will be as follows:
-"   - Vim (Linux/macOS): '~/.vim/plugged'
-"   - Vim (Windows): '~/vimfiles/plugged'
-"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
-" You can specify a custom plugin directory by passing it as the argument
-"   - e.g. `call plug#begin('~/.vim/plugged')`
-"   - Avoid using standard Vim directory names like 'plugin'
-
-" Make sure you use single quotes
-
-" Plugin 'tomasr/molokai'
-
-" Initialize plugin system
-call plug#end()
+" Enable support for filetypes, plugins, and auto-indentation
+" Включить поддержку файловых типов, плагинов и автоматическое определение отступов
+" filetype plugin indent on   " Отключено, т.к. того требует Vundle (см. выше)
+" Set textwidth to 78 for files with 'text' filetype
+" Установить textwidth в 78 для файлов с типом 'text'
+autocmd FileType text setlocal textwidth=78
+" Move cursor to the position of the last edit mark after opening any file
+" Переместить курсор на позицию последней метки редактирования после открытия любого файла
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+" Set horizontal scrolling by 10 columns
+" Установить горизонтальную прокрутку на 10 колонок
+set sidescroll=10
+" Set the scroll offset to 3 lines
+" Установить смещение прокрутки в 3 строки
+set scrolloff=3
+" Map F5 key to insert { } and move cursor between them
+" Сопоставление клавиши F5 для вставки { } и перемещения курсора между ними
+:map <F5> i{<Esc>ea}<Esc>
+" Map '\p' key to insert ( ) and move cursor between them
+" Сопоставление клавиши '\p' для вставки ( ) и перемещения курсора между ними
+:map \p i(<Esc>ea)<Esc>
+" Map '\c' key to insert { } and move cursor between them
+" Сопоставление клавиши '\c' для вставки { } и перемещения курсора между ними
+:map \c i{<Esc>ea}<Esc>
+" Set < and > as additional match pairs for auto-completion
+" Установить < и > как дополнительные пары скобок для автодополнения
+set mps+=<:>
+" Enable showing matching parentheses
+" Включить отображение соответствующей пары скобок
+set showmatch
+" Set 'b', 's', '<', '>', and '[]' as whichwrap options
+" Установить 'b', 's', '<', '>', и '[]' как опции whichwrap
+" Нормальное перемещение на предыдущую и следующую строки помимо 'j' и 'k'
+set whichwrap=b,s,<,>,[]
+" Enable displaying of non-printable characters
+" Включить отображение непечатаемых символов:
+" '^I' — табуляция, '·' — пробелы, '$' — концы строк, '^M' — возврат каретки
+set list
+" Define custom listchars for displaying non-printable characters
+" Определить пользовательские listchars для отображения непечатаемых символов
+set listchars=tab:..,trail:-
+" Set the command line height to 3 lines
+" Установить высоту командной строки в 3 строки
+set cmdheight=3
+" Enable mouse support
+" Включить поддержку мыши
+set mouse=a
