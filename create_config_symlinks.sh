@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Скрипт написан с помощью ChatGPT
+# https://chat.openai.com/share/50889d98-df9c-4429-af07-ff88a1a6fa1b
+
 # Сделайте файл исполняемым! В терминале введите:
 # chmod +x create_config_symlinks.sh
 
