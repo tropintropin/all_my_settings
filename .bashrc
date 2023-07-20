@@ -97,26 +97,6 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-# ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Git aliases
-alias GS='git status'
-alias GP='git push'
-alias GPR='git pull --rebase'
-alias GA='git add'
-alias GCM='git commit -m'
-
-# Tmux aliases
-alias TMKS='tmux kill-server'
-alias TMK='tmux kill-session -t'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -143,3 +123,42 @@ if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
     GIT_PROMPT_ONLY_IN_REPO=1
     source $HOME/.bash-git-prompt/gitprompt.sh
 fi
+
+# Config aliases
+alias zshconfig="nvim ~/.zshrc"
+alias ohmyzsh="nvim ~/.oh-my-zsh"
+alias bashconfig="nvim ~/.bashrc"
+alias gitconfig="nvim ~/.gitconfig"
+alias tmuxconfig="nvim ~/.tmux.conf"
+
+# batcat alias
+alias bat='batcat'
+
+# Git aliases
+alias GS='git status'
+alias GSW='git swich'
+alias GP='git push'
+alias GF='git fetch'
+alias GPR='git pull --rebase'
+alias GA='git add'
+alias GC='git commit'
+alias GCM='git commit -m'
+
+# ls alias
+alias l='ls -laF'
+
+# Python aliases
+alias python="python3"
+
+# Tmux aliases
+alias TMKS='tmux kill-server'
+alias TMK='tmux kill-session -t'
+alias TMATMN='tmux attach || tmux new'
+alias TMA='tmux attach'
+alias TMN='tmux new'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+
