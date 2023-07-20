@@ -6,7 +6,7 @@
 " https://github.com/VundleVim/Vundle.vim#quick-start
 " https://r-notes.ru/48-knigi/rukovodstvo-polzovatelya-vim/122-nastrojki.html
 " https://dimio.org/fajl-nastrojki-vim-vimrc-dlya-linux-i-windows.html
-" Некоторые комментарии в коде сгенерированы с помощью ChatGPT May 24 Version:
+" Комментарии в коде сгенерированы с помощью ChatGPT:
 " https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
 
 " SETTINGS FROM VUNDLE:
