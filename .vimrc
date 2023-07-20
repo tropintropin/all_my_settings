@@ -5,6 +5,7 @@
 " Источники:
 " https://github.com/VundleVim/Vundle.vim#quick-start
 " https://r-notes.ru/48-knigi/rukovodstvo-polzovatelya-vim/122-nastrojki.html
+" https://dimio.org/fajl-nastrojki-vim-vimrc-dlya-linux-i-windows.html
 " Некоторые комментарии в коде сгенерированы с помощью ChatGPT May 24 Version:
 " https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
 
@@ -55,6 +56,9 @@ filetype plugin indent on    " required
 
 " MY SETTINGS
 " 
+" Update the first line of .vimrc with the last update date and time
+" Обновить первую строку .vimrc с информацией о последнем обновлении
+autocmd! bufwritepre $MYVIMRC call setline(1, '"  Last update: '.strftime("%d.%m.%Y %H:%M"))
 " Automatically reload the Vim configuration after saving
 " Автоматически перезагружать конфигурацию Vim после сохранения
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
@@ -95,9 +99,19 @@ au BufWinLeave *.* silent mkview
 " Automatically load the view when entering a buffer
 " Автоматически восстанавливать вид при открытии буфера
 au BufWinEnter *.* silent loadview
-" Enable incremental search
-" Включить инкрементальный поиск
-set incsearch
+" Define session options to save current directory, buffers, and tab pages
+" Определить параметры сессии для сохранения текущего каталога, буферов и вкладок
+set sessionoptions=curdir,buffers,tabpages
+" Set the current directory as the browsing directory
+" Установить текущий каталог в качестве каталога для просмотра
+set browsedir=current
+" Set the clipboard to use the unnamed register
+" Установить обмен данными с буфером обмена через неименованный регистр,
+" т.е., будет работать Ctrl+C, Ctrl+V
+set clipboard=unnamed
+" Enable window title
+" Включить отображение заголовка окна
+set title
 " Map 'p' key in Visual mode to paste from a register
 " При нажатии 'p' в режиме визуального выделения на место выделенного
 " текста будет вставлено содержимое регистра '"'
@@ -152,9 +166,24 @@ set list
 " Define custom listchars for displaying non-printable characters
 " Определить пользовательские listchars для отображения непечатаемых символов
 set listchars=tab:..,trail:-
+" Enable incremental search
+" Включить инкрементальный поиск
+set incsearch
+" Highlight the current word under the cursor
+" Подсветить текущее слово под курсором
+autocmd CursorMoved * silent! exe printf("match Search /\\<%s\\>/", expand(''))
+" Set ignorecase mode for search
+" Установить режим игнорирования регистра при поиске
+set ignorecase
+" Set smartcase mode for search
+" Установить умный режим игнорирования регистра при поиске
+set smartcase
 " Set the command line height to 3 lines
 " Установить высоту командной строки в 3 строки
 set cmdheight=3
 " Enable mouse support
 " Включить поддержку мыши
 set mouse=a
+" Set the completion options to display a menu and preview window
+" Установить опции автозавершения для отображения всплывающего меню и окна предпросмотра
+set completeopt=menu,preview
