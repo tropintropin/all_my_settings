@@ -131,8 +131,10 @@ alias bashconfig="nvim ~/.bashrc"
 alias gitconfig="nvim ~/.gitconfig"
 alias tmuxconfig="nvim ~/.tmux.conf"
 
-# batcat alias
-alias bat='batcat'
+# batcat alias for Linux
+if [ "$OSTYPE" = "linux-gnu" ]; then
+    alias bat='batcat'
+fi
 
 # Git aliases
 alias GS='git status'
