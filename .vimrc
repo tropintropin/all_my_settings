@@ -6,46 +6,107 @@
 " https://github.com/VundleVim/Vundle.vim#quick-start
 " https://r-notes.ru/48-knigi/rukovodstvo-polzovatelya-vim/122-nastrojki.html
 " https://dimio.org/fajl-nastrojki-vim-vimrc-dlya-linux-i-windows.html
+" https://losst.pro/nastrojka-vim
+" https://chugunkov.dev/2017/07/30/my-vim.html
 " Комментарии в коде сгенерированы с помощью ChatGPT:
 " https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
 
 " SETTINGS FROM VUNDLE:
-set nocompatible              " be iMproved, required
-filetype off                  " required
+
+" Disable compatibility mode
+" Отключить режим совместимости (compatible mode)
+set nocompatible
+" Turn off automatic filetype detection
+" Отключить автоматическое определение типа файла (filetype detection)
+filetype off
 
 " set the runtime path to include Vundle and initialize
+" Добавить путь к плагину Vundle.vim в переменную runtimepath
 set rtp+=~/.vim/bundle/Vundle.vim
+
+" After calling vundle#begin(), you can specify the plugins you want
+" to install in your Vim configuration by using the 'Plugin' command.
+" The syntax for adding a plugin using Vundle is:
+" Plugin 'github_username/plugin_repository_name'
+" Keep Plugin commands between vundle#begin/end.
+
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
+" Fugitive is the premier Vim plugin for Git.
+" Command ':Git' or just ':G' calls any arbitrary Git command.
 Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-" Plugin 'L9'
-" Git plugin not hosted on GitHub
+
+" Command-T provides fast and efficient file navigation and fuzzy file search capabilities.
+" It allows you to quickly open files in your project by typing a part of their name
+" and using fuzzy matching to find the best match.
 Plugin 'git://git.wincent.com/command-t.git'
+
 " git repos on your local machine (i.e. when working on your own plugin)
-Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
+" Plugin 'file:///home/gmarik/path/to/plugin'
+
+" Sparkup provides a fast and efficient way to write HTML code using a syntax
+" inspired by the Zen Coding (Emmet) syntax. It allows you to write HTML code
+" more quickly and with fewer keystrokes.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+
 " Install L9 and avoid a Naming conflict if you've already installed a
 " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
+Plugin 'ascenator/L9', {'name': 'newL9'}
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
+" NERDTree provides a file explorer tree within Vim, allowing you to navigate
+" and manage your files and directories right from the editor.
+Plugin 'scrooloose/nerdtree'
+" A plugin of NERDTree showing git status flags.
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+
+" ctrlp.vim provides a powerful and versatile fuzzy file finder.
+Plugin 'ctrlpvim/ctrlp.vim'
+
+" vim-easygrep simplifies and enhances the process of performing global search
+" and replace operations within files and directories.
+" Commands: ':Replace abc cba', ':Grep abc'.
+Plugin 'dkprice/vim-easygrep'
+
+" vim-devicons provides icon support in various parts of the Vim interface.
+Plugin 'ryanoasis/vim-devicons'
+
+" vim-airline will automatically replace the default Vim status line
+" with its own more visually appealing status line.
+Plugin 'vim-airline/vim-airline'
+" vim-airline-themes is an add-on plugin for "vim-airline" that provides
+" additional themes and styles for the status line created by "vim-airline.
+Plugin 'vim-airline/vim-airline-themes'
+
+" lightline.vim enhances the appearance of the status line in Vim.
+Plugin 'itchyny/lightline.vim'
+
+" Automatically detect and activate the appropriate Python virtual environment
+" when editing files inside a project that contains a virtual environment.
+" Display the name of the currently active virtual environment in the Vim status line.
+Plugin 'jmcantrell/vim-virtualenv'
+
+" nerdcommenter provides easy and efficient commenting and uncommenting of code.
+" To comment or uncomment code in normal mode: '\cc' for comment, '\cu' for uncomment.
+Plugin 'scrooloose/nerdcommenter'
+
+" nginx.vim provides syntax highlighting and other features specific to nginx configuration files.
+Plugin 'chr4/nginx.vim'
+
+" vim-rainbow enhances the syntax highlighting of brackets, parentheses,
+" and other delimiter characters in various programming languages.
+Plugin 'frazrepo/vim-rainbow'
+
+call vundle#end()
+
+" Enables automatic detection and setting of the file type based on the file's extension or content.
+" Enables the loading of filetype-specific plugin scripts and settings.
+" Enables automatic indentation for certain file types.
+filetype plugin indent on
+
+" Brief help:
 " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -55,7 +116,10 @@ filetype plugin indent on    " required
 " Put your non-Plugin stuff after this line
 
 " MY SETTINGS
-" 
+
+" Create a custom command 'W' to save the file with sudo privileges
+" Создать команду 'W' для сохранения файла с правами суперпользователя (sudo)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 " Update the first line of .vimrc with the last update date and time
 " Обновить первую строку .vimrc с информацией о последнем обновлении
 autocmd! bufwritepre $MYVIMRC call setline(1, '"  Last update: '.strftime("%d.%m.%Y %H:%M"))
@@ -68,6 +132,14 @@ set autoread
 " Enable confirmation before executing some dangerous commands
 " Включить подтверждение перед выполнением некоторых опасных команд
 set confirm
+
+" Set the encoding to UTF-8
+" Установить кодировку (encoding) в UTF-8
+set encoding=utf8
+" Set the preferred end-of-line formats to Unix, DOS, and Mac
+" Установить предпочитаемые форматы конца строки в Unix, DOS и Mac
+set ffs=unix,dos,mac
+
 " Configure Backspace behavior
 " Настройка поведения клавиши Backspace для удаления отступов (indent),
 " перевода каретки (eol) и перемещения к началу предыдущих строк (start)
@@ -83,7 +155,7 @@ set history=100
 set ruler
 " Define a custom statusline format
 " Определить пользовательский формат строки статуса
-set statusline=%F%m%r%h%w\ [FF,FE,TE=%{&fileformat},%{&fileencoding},%{&encoding}\]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+" set statusline=%F%m%r%h%w\ [FF,FE,TE=%{&fileformat},%{&fileencoding},%{&encoding}\]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 " Set the appearance of the status line for different interfaces
 " Установить внешний вид строки статуса для различных интерфейсов
 hi StatusLine gui=reverse cterm=reverse
@@ -93,6 +165,42 @@ highlight SpellBad ctermfg=Black ctermbg=Red
 " Show command in the status line
 " Отображать текущую команду в строке статуса
 set showcmd
+
+" APPEARANCE
+set t_Co=256
+colo slate
+
+" VIM-AIRLINE PLUGIN
+let g:airline_theme='raven'
+let g:airline_enable_fugitive=1
+" Automatically displays all buffers when there's only one tab open.
+" let g:airline#extensions#tabline#enabled = 1
+" Airline will try to use Powerline compatible fonts if they are available on your system.
+" let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" NERDTree PLUGIN
+" Раскрытие и скрытие дерева по двойному нажатию на запятую
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+
+" nerdcommenter PLUGIN
+" Закомментировать стоку по Ctrl+/
+nnoremap <C-_> :call nerdcommenter#Comment(0,"toggle")<CR>
+vnoremap <C-_> :call nerdcommenter#Comment(0,"toggle")<CR>
+
 " Automatically save the view when leaving a buffer
 " Автоматически сохранять вид при закрытии буфера
 au BufWinLeave *.* silent mkview
@@ -112,6 +220,7 @@ set clipboard=unnamed
 " Enable window title
 " Включить отображение заголовка окна
 set title
+
 " Map 'p' key in Visual mode to paste from a register
 " При нажатии 'p' в режиме визуального выделения на место выделенного
 " текста будет вставлено содержимое регистра '"'
@@ -122,6 +231,11 @@ if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
 endif
+
+" The wildmenu is a type of completion menu that appears when you press Tab
+" to auto-complete file and command names.
+set wildmenu
+
 " Enable support for filetypes, plugins, and auto-indentation
 " Включить поддержку файловых типов, плагинов и автоматическое определение отступов
 " filetype plugin indent on   " Отключено, т.к. того требует Vundle (см. выше)
@@ -149,6 +263,32 @@ set scrolloff=3
 " Map '\c' key to insert { } and move cursor between them
 " Сопоставление клавиши '\c' для вставки { } и перемещения курсора между ними
 :map \c i{<Esc>ea}<Esc>
+
+" TABULATION
+" Enable smart tab behavior
+" Включить умное поведение при нажатии клавиши Tab
+set smarttab
+" Enable expanding tabs to spaces
+" Включить замену символов табуляции на пробелы
+set expandtab
+" Set the shiftwidth value to 4 spaces
+" Установить значение shiftwidth равным 4 пробелам
+set shiftwidth=4
+" Set the tabstop value to 4 spaces
+" Установить значение tabstop равным 4 пробелам
+set tabstop=4
+" Set the soft tabstop value to 4 spaces
+" Установить значение softtabstop равным 4 пробелам
+set softtabstop=4
+
+" Enable line numbers
+" Включить отображение номеров строк
+set number
+" Set the fold column width to 2
+" Установить ширину столбца свертки (fold column) равной 2
+set foldcolumn=2
+
+" PARENTHESES
 " Set < and > as additional match pairs for auto-completion
 " Установить < и > как дополнительные пары скобок для автодополнения
 set mps+=<:>
@@ -156,6 +296,7 @@ set mps+=<:>
 " Включить отображение соответствующей пары скобок
 set showmatch
 " Set 'b', 's', '<', '>', and '[]' as whichwrap options
+
 " Установить 'b', 's', '<', '>', и '[]' как опции whichwrap
 " Нормальное перемещение на предыдущую и следующую строки помимо 'j' и 'k'
 set whichwrap=b,s,<,>,[]
@@ -178,9 +319,6 @@ set ignorecase
 " Set smartcase mode for search
 " Установить умный режим игнорирования регистра при поиске
 set smartcase
-" Set the command line height to 3 lines
-" Установить высоту командной строки в 3 строки
-set cmdheight=3
 " Enable mouse support
 " Включить поддержку мыши
 set mouse=a
