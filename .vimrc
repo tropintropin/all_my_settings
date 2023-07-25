@@ -180,7 +180,7 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
 set background=dark
-colorscheme PaperColor
+colo PaperColor
 
 " VIM-AIRLINE PLUGIN
 let g:airline_theme='papercolor'
