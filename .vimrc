@@ -81,8 +81,11 @@ Plugin 'vim-airline/vim-airline'
 " additional themes and styles for the status line created by "vim-airline.
 Plugin 'vim-airline/vim-airline-themes'
 
+" Light & Dark Vim color schemes inspired by Google's Material Design
+Plugin 'NLKNguyen/papercolor-theme'
+
 " lightline.vim enhances the appearance of the status line in Vim.
-Plugin 'itchyny/lightline.vim'
+" Plugin 'itchyny/lightline.vim'
 
 " Automatically detect and activate the appropriate Python virtual environment
 " when editing files inside a project that contains a virtual environment.
@@ -154,9 +157,6 @@ set history=100
 " Enable status line (ruler)
 " Включить строку статуса (линейку) в нижней части окна Vim
 set ruler
-" Define a custom statusline format
-" Определить пользовательский формат строки статуса
-" set statusline=%F%m%r%h%w\ [FF,FE,TE=%{&fileformat},%{&fileencoding},%{&encoding}\]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 " Set the appearance of the status line for different interfaces
 " Установить внешний вид строки статуса для различных интерфейсов
 hi StatusLine gui=reverse cterm=reverse
@@ -169,29 +169,25 @@ set showcmd
 
 " APPEARANCE
 set t_Co=256
-colo slate
+
+" PAPERCOLOR-THEME PLUGIN
+" https://github.com/NLKNguyen/papercolor-theme
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'transparent_background': 1
+  \     }
+  \   }
+  \ }
+set background=dark
+colorscheme PaperColor
 
 " VIM-AIRLINE PLUGIN
-let g:airline_theme='raven'
+let g:airline_theme='papercolor'
 let g:airline_enable_fugitive=1
-" Automatically displays all buffers when there's only one tab open.
-" let g:airline#extensions#tabline#enabled = 1
-" Airline will try to use Powerline compatible fonts if they are available on your system.
-" let g:airline_powerline_fonts = 1
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-let g:airline_left_sep = '»'
-let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
-let g:airline_right_sep = '◀'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-let g:airline_symbols.paste = 'Þ'
-let g:airline_symbols.paste = '∥'
-let g:airline_symbols.whitespace = 'Ξ'
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
 
 " NERDTree PLUGIN
 " Раскрытие и скрытие дерева по двойному нажатию на запятую
@@ -237,9 +233,6 @@ endif
 " to auto-complete file and command names.
 set wildmenu
 
-" Enable support for filetypes, plugins, and auto-indentation
-" Включить поддержку файловых типов, плагинов и автоматическое определение отступов
-" filetype plugin indent on   " Отключено, т.к. того требует Vundle (см. выше)
 " Set textwidth to 78 for files with 'text' filetype
 " Установить textwidth в 78 для файлов с типом 'text'
 autocmd FileType text setlocal textwidth=78
@@ -285,9 +278,7 @@ set softtabstop=4
 " Enable line numbers
 " Включить отображение номеров строк
 set number
-" Set the fold column width to 2
-" Установить ширину столбца свертки (fold column) равной 2
-set foldcolumn=2
+set laststatus=2
 
 " PARENTHESES
 " Set < and > as additional match pairs for auto-completion
