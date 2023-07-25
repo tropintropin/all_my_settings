@@ -1,5 +1,10 @@
 # All My Settings
 
+[![wakatime](https://wakatime.com/badge/user/45d08a79-2677-4493-83b7-77be5bfef3a9/project/bd858417-61db-4956-9166-d6f1bd51569f.svg)](https://wakatime.com/badge/user/45d08a79-2677-4493-83b7-77be5bfef3a9/project/bd858417-61db-4956-9166-d6f1bd51569f)
+[![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
+<img src="https://img.shields.io/badge/VIM-%2311AB00.svg?&style=for-the-badge&logo=vim&logoColor=white" alt="vim" height="20">
+<img src="https://img.shields.io/badge/tmux-1BB91F?style=for-the-badge&logo=tmux&logoColor=white" alt="tmux" height="20">
+
 Репа для всех моих файлов настроек.
 
 - [Настраиваем новую машину](#настраиваем-новую-машину)
