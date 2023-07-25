@@ -11,6 +11,8 @@
 " Комментарии в коде сгенерированы с помощью ChatGPT:
 " https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
 
+filetype on     " Без этой строчки Vim на macOS не загрузит список плагинов
+
 " SETTINGS FROM VUNDLE:
 
 " Disable compatibility mode
@@ -18,7 +20,6 @@
 set nocompatible
 " Turn off automatic filetype detection
 " Отключить автоматическое определение типа файла (filetype detection)
-filetype on     " Без этой строчки Vim на macOS не загрузит список плагигов
 filetype off
 
 " set the runtime path to include Vundle and initialize
