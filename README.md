@@ -120,10 +120,32 @@ ln -sf /path/to/your/repository/.bashrc ~/.bashrc
     :PluginInstall
     ```
 
+    или:
+
+    ```vim
+    :PluginUpdate
+    ```
+
     или делаем то же самое из командной строки:
 
     ```sh
     vim +PluginInstall +qall
+    ```
+
+    __NB!__ В macOS Vim может ругаться при подключении Vundle. Дело решается следующим кодом:
+
+    ```vim
+    filetype on     " сначала включаем
+    filetype off    " затем выключаем для Vundle
+    " Vundle settings + plugins initialization
+    filetype on     " вновь включаем для дальнейшей настройки
+    " Other Vim settings
+    ```
+
+    Перезапускать конфиг Vim можно не выходя из него, по команде:
+
+    ```vim
+    :source %
     ```
 
 #### `tmux`
