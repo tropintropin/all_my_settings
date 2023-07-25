@@ -1,4 +1,4 @@
-" Файл настроек для текстового редактора Vim/Neovim
+"  Last update: 25.07.2023 14:49
 " Составил Валерий Тропин
 " tropin.one
 "
@@ -18,6 +18,7 @@
 set nocompatible
 " Turn off automatic filetype detection
 " Отключить автоматическое определение типа файла (filetype detection)
+filetype on     " Без этой строчки Vim на macOS не загрузит список плагигов
 filetype off
 
 " set the runtime path to include Vundle and initialize
