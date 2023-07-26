@@ -1,4 +1,4 @@
-"  Last update: 25.07.2023 14:49
+"  Last update: 26.07.2023 16:45
 " Составил Валерий Тропин
 " tropin.one
 "
@@ -8,7 +8,7 @@
 " https://dimio.org/fajl-nastrojki-vim-vimrc-dlya-linux-i-windows.html
 " https://losst.pro/nastrojka-vim
 " https://chugunkov.dev/2017/07/30/my-vim.html
-" Комментарии в коде сгенерированы с помощью ChatGPT:
+" Комментарии в коде сгенерированы с помощью GPT 3.5:
 " https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
 
 filetype on     " Без этой строчки Vim на macOS не загрузит список плагинов
@@ -18,6 +18,7 @@ filetype on     " Без этой строчки Vim на macOS не загру�
 " Disable compatibility mode
 " Отключить режим совместимости (compatible mode)
 set nocompatible
+
 " Turn off automatic filetype detection
 " Отключить автоматическое определение типа файла (filetype detection)
 filetype off
@@ -61,6 +62,7 @@ Plugin 'ascenator/L9', {'name': 'newL9'}
 " NERDTree provides a file explorer tree within Vim, allowing you to navigate
 " and manage your files and directories right from the editor.
 Plugin 'scrooloose/nerdtree'
+
 " A plugin of NERDTree showing git status flags.
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
@@ -73,11 +75,12 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'dkprice/vim-easygrep'
 
 " vim-devicons provides icon support in various parts of the Vim interface.
-Plugin 'ryanoasis/vim-devicons'
+" Plugin 'ryanoasis/vim-devicons'
 
 " vim-airline will automatically replace the default Vim status line
 " with its own more visually appealing status line.
 Plugin 'vim-airline/vim-airline'
+
 " vim-airline-themes is an add-on plugin for "vim-airline" that provides
 " additional themes and styles for the status line created by "vim-airline.
 Plugin 'vim-airline/vim-airline-themes'
@@ -125,15 +128,19 @@ filetype plugin indent on
 " Create a custom command 'W' to save the file with sudo privileges
 " Создать команду 'W' для сохранения файла с правами суперпользователя (sudo)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
 " Update the first line of .vimrc with the last update date and time
 " Обновить первую строку .vimrc с информацией о последнем обновлении
 autocmd! bufwritepre $MYVIMRC call setline(1, '"  Last update: '.strftime("%d.%m.%Y %H:%M"))
+
 " Automatically reload the Vim configuration after saving
 " Автоматически перезагружать конфигурацию Vim после сохранения
 autocmd! bufwritepost $MYVIMRC source $MYVIMRC
+
 " Enable auto-reading of files
 " Включить автоматическое обновление файлов
 set autoread
+
 " Enable confirmation before executing some dangerous commands
 " Включить подтверждение перед выполнением некоторых опасных команд
 set confirm
@@ -141,6 +148,7 @@ set confirm
 " Set the encoding to UTF-8
 " Установить кодировку (encoding) в UTF-8
 set encoding=utf8
+
 " Set the preferred end-of-line formats to Unix, DOS, and Mac
 " Установить предпочитаемые форматы конца строки в Unix, DOS и Mac
 set ffs=unix,dos,mac
@@ -149,21 +157,27 @@ set ffs=unix,dos,mac
 " Настройка поведения клавиши Backspace для удаления отступов (indent),
 " перевода каретки (eol) и перемещения к началу предыдущих строк (start)
 set backspace=indent,eol,start
+
 " Enable auto-indentation
 " Включить автоматическое выравнивание как у предыдущей строки
 set autoindent
+
 " Set command history size to 100
 " Установить размер истории команд на 100
 set history=100
+
 " Enable status line (ruler)
 " Включить строку статуса (линейку) в нижней части окна Vim
 set ruler
+
 " Set the appearance of the status line for different interfaces
 " Установить внешний вид строки статуса для различных интерфейсов
 hi StatusLine gui=reverse cterm=reverse
+
 " Set the appearance of SpellBad highlighting
 " Установить внешний вид подсветки для неправильно написанных слов
 highlight SpellBad ctermfg=Black ctermbg=Red
+
 " Show command in the status line
 " Отображать текущую команду в строке статуса
 set showcmd
@@ -180,15 +194,19 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
+
 set background=dark
+
 colo PaperColor
 
 " VIM-AIRLINE PLUGIN
 let g:airline_theme='papercolor'
 let g:airline_enable_fugitive=1
-
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#syntastic#enabled = 1
+
+" COMMAND-T PLUGIN
+let g:CommandTPreferredImplementation='ruby'    " need this for Neovim
 
 " NERDTree PLUGIN
 " Раскрытие и скрытие дерева по двойному нажатию на запятую
@@ -202,19 +220,24 @@ vnoremap <C-_> :call nerdcommenter#Comment(0,"toggle")<CR>
 " Automatically save the view when leaving a buffer
 " Автоматически сохранять вид при закрытии буфера
 au BufWinLeave *.* silent mkview
+
 " Automatically load the view when entering a buffer
 " Автоматически восстанавливать вид при открытии буфера
 au BufWinEnter *.* silent loadview
+
 " Define session options to save current directory, buffers, and tab pages
 " Определить параметры сессии для сохранения текущего каталога, буферов и вкладок
 set sessionoptions=curdir,buffers,tabpages
+
 " Set the current directory as the browsing directory
 " Установить текущий каталог в качестве каталога для просмотра
 set browsedir=current
+
 " Set the clipboard to use the unnamed register
 " Установить обмен данными с буфером обмена через неименованный регистр,
 " т.е., будет работать Ctrl+C, Ctrl+V
 set clipboard=unnamed
+
 " Enable window title
 " Включить отображение заголовка окна
 set title
@@ -223,6 +246,7 @@ set title
 " При нажатии 'p' в режиме визуального выделения на место выделенного
 " текста будет вставлено содержимое регистра '"'
 vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
+
 " Enable syntax highlighting and search highlighting based on color support and GUI presence
 " Включить подсветку синтаксиса и выделение результатов поиска на основе поддержки цветовой схемы и GUI
 if &t_Co > 2 || has("gui_running")
@@ -237,24 +261,30 @@ set wildmenu
 " Set textwidth to 78 for files with 'text' filetype
 " Установить textwidth в 78 для файлов с типом 'text'
 autocmd FileType text setlocal textwidth=78
+
 " Move cursor to the position of the last edit mark after opening any file
 " Переместить курсор на позицию последней метки редактирования после открытия любого файла
 autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal g`\"" |
     \ endif
+
 " Set horizontal scrolling by 10 columns
 " Установить горизонтальную прокрутку на 10 колонок
 set sidescroll=10
+
 " Set the scroll offset to 3 lines
 " Установить смещение прокрутки в 3 строки
 set scrolloff=3
+
 " Map F5 key to insert { } and move cursor between them
 " Сопоставление клавиши F5 для вставки { } и перемещения курсора между ними
 :map <F5> i{<Esc>ea}<Esc>
+
 " Map '\p' key to insert ( ) and move cursor between them
 " Сопоставление клавиши '\p' для вставки ( ) и перемещения курсора между ними
 :map \p i(<Esc>ea)<Esc>
+
 " Map '\c' key to insert { } and move cursor between them
 " Сопоставление клавиши '\c' для вставки { } и перемещения курсора между ними
 :map \c i{<Esc>ea}<Esc>
@@ -263,15 +293,19 @@ set scrolloff=3
 " Enable smart tab behavior
 " Включить умное поведение при нажатии клавиши Tab
 set smarttab
+
 " Enable expanding tabs to spaces
 " Включить замену символов табуляции на пробелы
 set expandtab
+
 " Set the shiftwidth value to 4 spaces
 " Установить значение shiftwidth равным 4 пробелам
 set shiftwidth=4
+
 " Set the tabstop value to 4 spaces
 " Установить значение tabstop равным 4 пробелам
 set tabstop=4
+
 " Set the soft tabstop value to 4 spaces
 " Установить значение softtabstop равным 4 пробелам
 set softtabstop=4
@@ -279,42 +313,53 @@ set softtabstop=4
 " Enable line numbers
 " Включить отображение номеров строк
 set number
+
 set laststatus=2
 
 " PARENTHESES
 " Set < and > as additional match pairs for auto-completion
 " Установить < и > как дополнительные пары скобок для автодополнения
 set mps+=<:>
+
 " Enable showing matching parentheses
 " Включить отображение соответствующей пары скобок
 set showmatch
-" Set 'b', 's', '<', '>', and '[]' as whichwrap options
 
+" Set 'b', 's', '<', '>', and '[]' as whichwrap options
 " Установить 'b', 's', '<', '>', и '[]' как опции whichwrap
 " Нормальное перемещение на предыдущую и следующую строки помимо 'j' и 'k'
 set whichwrap=b,s,<,>,[]
+
 " Enable displaying of non-printable characters
 " Включить отображение непечатаемых символов:
 " '^I' — табуляция, '·' — пробелы, '$' — концы строк, '^M' — возврат каретки
 set list
+
 " Define custom listchars for displaying non-printable characters
 " Определить пользовательские listchars для отображения непечатаемых символов
 set listchars=tab:..,trail:-
+
 " Enable incremental search
 " Включить инкрементальный поиск
 set incsearch
+
 " Highlight the current word under the cursor
 " Подсветить текущее слово под курсором
 autocmd CursorMoved * silent! exe printf("match Search /\\<%s\\>/", expand(''))
+
 " Set ignorecase mode for search
 " Установить режим игнорирования регистра при поиске
 set ignorecase
+
 " Set smartcase mode for search
 " Установить умный режим игнорирования регистра при поиске
 set smartcase
+
 " Enable mouse support
 " Включить поддержку мыши
 set mouse=a
+
 " Set the completion options to display a menu and preview window
 " Установить опции автозавершения для отображения всплывающего меню и окна предпросмотра
 set completeopt=menu,preview
+
