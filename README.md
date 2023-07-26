@@ -137,21 +137,23 @@ ln -sf /path/to/your/repository/.bashrc ~/.bashrc
     vim +PluginInstall +qall
     ```
 
-    __NB!__ В macOS Vim может ругаться при подключении Vundle. Дело решается следующим кодом:
+__NB!__ В macOS Vim может ругаться при подключении Vundle. Дело решается следующим кодом:
 
-    ```vim
-    filetype on     " сначала включаем
-    filetype off    " затем выключаем для Vundle
-    " Vundle settings + plugins initialization
-    filetype on     " вновь включаем для дальнейшей настройки
-    " Other Vim settings
-    ```
+```vim
+filetype on     " сначала включаем
+filetype off    " затем выключаем для Vundle
+" Vundle settings + plugins initialization
+filetype on     " вновь включаем для дальнейшей настройки
+" Other Vim settings
+```
 
-    Перезапускать конфиг Vim можно не выходя из него, по команде:
+Перезапускать конфиг Vim можно не выходя из него, по команде:
 
-    ```vim
-    :source %
-    ```
+```vim
+:source %
+```
+
+Один и тот же `.vimrc` файл можно использовать как для Vim, так и для Neovim. Для его подключения к последнему придётся сделать [небольшую](https://neovim.io/doc/user/nvim.html#nvim-from-vim) донастройку.
 
 #### `tmux`
 
