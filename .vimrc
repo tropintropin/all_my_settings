@@ -107,6 +107,9 @@ Plugin 'chr4/nginx.vim'
 " and other delimiter characters in various programming languages.
 Plugin 'frazrepo/vim-rainbow'
 
+" WakaTime plugin for an automatic time tracking.
+Plugin 'wakatime/vim-wakatime'
+
 call vundle#end()
 
 " Enables automatic detection and setting of the file type based on the file's extension or content.
