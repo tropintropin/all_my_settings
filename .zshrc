@@ -61,7 +61,14 @@ zstyle ':omz:update' frequency 14
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git python)
+#
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
+# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
+#
+plugins=(git gitignore pip python web-search)
 
 source $ZSH/oh-my-zsh.sh
 
