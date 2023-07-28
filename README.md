@@ -1,4 +1,4 @@
-# All My Settings
+# All My Settings & Dotfiles
 
 [![wakatime](https://wakatime.com/badge/user/45d08a79-2677-4493-83b7-77be5bfef3a9/project/bd858417-61db-4956-9166-d6f1bd51569f.svg)](https://wakatime.com/badge/user/45d08a79-2677-4493-83b7-77be5bfef3a9/project/bd858417-61db-4956-9166-d6f1bd51569f)
 [![made-with-bash](https://img.shields.io/badge/Made%20with-Bash-1f425f.svg)](https://www.gnu.org/software/bash/)
@@ -8,12 +8,13 @@
 Репа для всех моих файлов настроек.
 
 - [Настраиваем новую машину](#настраиваем-новую-машину)
-    - [Скрипт](#скрипт)
-    - [Ручная настройка](#ручная-настройка)
-      - [`bash`](#`bash`)
-      - [`zsh`](#`zsh`)
-      - [`vim`](#`vim`)
-      - [`tmux`](#`tmux`)
+- [Скрипт](#скрипт)
+- [Ручная настройка](#ручная-настройка)
+    - [Bash](#bash)
+    - [Zsh](#zsh)
+    - [Vim](#vim)
+    - [Tmux](#tmux)
+    - [Git](#git)
 - [Обновляем оглавление этого файла](#обновляем-оглавление-этого-файла)
 
 ## Настраиваем новую машину
@@ -56,13 +57,13 @@ chmod +x create_config_symlinks.sh
 
 ### Ручная настройка
 
-#### `bash`
+#### Bash
 
 ```sh
 ln -sf /path/to/your/repository/.bashrc ~/.bashrc
 ```
 
-#### `zsh`
+#### Zsh
 
 0. Устанавливаем `zsh`, если ещё не установлена:
 
@@ -99,7 +100,7 @@ ln -sf /path/to/your/repository/.bashrc ~/.bashrc
     ln -sf /path/to/your/repository/.zshrc ~/.zshrc
     ```
 
-#### `vim`
+#### Vim
 
 0. Создаём файл `.vimrc` в домашней папке, если его ещё в ней нет:
 
@@ -155,7 +156,7 @@ filetype on     " вновь включаем для дальнейшей нас
 
 Один и тот же `.vimrc` файл можно использовать как для Vim, так и для Neovim. Для его подключения к последнему придётся сделать [небольшую](https://neovim.io/doc/user/nvim.html#nvim-from-vim) донастройку.
 
-#### `tmux`
+#### Tmux
 
 0. Создаём файл `.tmux.conf` в домашней папке, если его ещё в ней нет:
 
@@ -167,6 +168,20 @@ filetype on     " вновь включаем для дальнейшей нас
 
     ```sh
     ln -sf /path/to/your/repository/.tmux.conf ~/.tmux.conf
+    ```
+
+#### Git
+
+0. Создаём файл `.gitconfig` в домашней папке, если его ещё в ней нет:
+
+    ```sh
+    touch ~/.gitconfig
+    ```
+
+0. Создаём симлинк для `.gitconfig`:
+
+    ```sh
+    ln -sf /path/to/your/repository/.gitconfig ~/.gitconfig
     ```
 
 ## Обновляем оглавление этого файла
@@ -183,3 +198,5 @@ python generate_toc.py README.md
 Вторым аргументом можно подставить любой другой md-файл.
 
 Скрипт пробежится по файлу и создаст многоуровневое оглавление для всех заголовков, а затем добавит его *в начало* препарируемого файла.
+
+> Но можно просто установить в ваш редактор плагин, который умеет делать и обновлять оглавление для md-файлов. Например, [vim-markdown-toc](https://github.com/mzlogin/vim-markdown-toc) для Vim'а.
