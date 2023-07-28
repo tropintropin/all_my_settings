@@ -32,7 +32,7 @@ function check_and_create_symlink() {
 }
 
 # Массив файлов для проверки и создания симлинка
-files=("bashrc" "zshrc" "vimrc" "tmux.conf")
+files=("bashrc" "gitconfig" "zshrc" "vimrc" "tmux.conf")
 
 # Цикл для проверки и создания симлинков
 for file in "${files[@]}"; do
