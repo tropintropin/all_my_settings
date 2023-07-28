@@ -174,6 +174,12 @@ filetype on     " вновь включаем для дальнейшей нас
     ln -sf /path/to/your/repository/.tmux.conf ~/.tmux.conf
     ```
 
+0. Запускаем Tmux и устанавливаем плагины:
+
+    ```tmux
+    <prefix> + I
+    ```
+
 #### Git
 
 0. Создаём файл `.gitconfig` в домашней папке, если его ещё в ней нет:
