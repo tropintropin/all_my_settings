@@ -110,6 +110,9 @@ Plugin 'frazrepo/vim-rainbow'
 " WakaTime plugin for an automatic time tracking.
 Plugin 'wakatime/vim-wakatime'
 
+" A vim 7.4+ plugin to generate table of contents for Markdown files.
+Plugin 'mzlogin/vim-markdown-toc'
+
 call vundle#end()
 
 " Enables automatic detection and setting of the file type based on the file's extension or content.
