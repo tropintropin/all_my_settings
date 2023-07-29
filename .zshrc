@@ -67,8 +67,16 @@ ENABLE_CORRECTION="true"
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
 # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
+# https://github.com/zsh-users/zsh-autosuggestions
 #
-plugins=(git gitignore pip python web-search)
+plugins=(
+    git
+    gitignore
+    pip
+    python
+    web-search
+    zsh-autosuggestions
+)
 
 source $ZSH/oh-my-zsh.sh
 
