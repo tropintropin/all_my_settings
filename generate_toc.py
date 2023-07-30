@@ -1,7 +1,7 @@
 # This script will create a table of contents for a Markdown file
 # Use it in terminal:
 # python generate_toc.py FILE.md
-# Script was create with help of ChatGPT
+# Script was create with help of GPT 3.5
 
 import sys
 

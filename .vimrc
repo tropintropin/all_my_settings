@@ -8,8 +8,7 @@
 " https://dimio.org/fajl-nastrojki-vim-vimrc-dlya-linux-i-windows.html
 " https://losst.pro/nastrojka-vim
 " https://chugunkov.dev/2017/07/30/my-vim.html
-" Комментарии в коде сгенерированы с помощью GPT 3.5:
-" https://chat.openai.com/share/4d96924c-6691-4ddf-a1a2-b943c317bf25
+" Некоторые комментарии в коде сгенерированы с помощью GPT 3.5
 
 filetype on     " Без этой строчки Vim на macOS не загрузит список плагинов
 
