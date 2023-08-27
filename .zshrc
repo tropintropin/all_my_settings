@@ -139,3 +139,6 @@ alias TMK='tmux kill-session -t'
 alias TMATMN='tmux attach || tmux new'
 alias TMA='tmux attach'
 alias TMN='tmux new'
+
+export PATH="/Applications/Racket v8.10/bin:$PATH"
+
