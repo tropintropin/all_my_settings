@@ -76,6 +76,7 @@ plugins=(
     pip
     python
     web-search
+    you-should-use
     zsh-autosuggestions
 )
 
@@ -100,6 +101,9 @@ fi
 
 # Set time for the right prompt
 RPROMPT='%*'
+
+# Settings for the zsh-you-should-use plugin:
+export YSU_MODE=ALL
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh

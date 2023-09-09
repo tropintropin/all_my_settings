@@ -103,6 +103,11 @@ ln -sf /path/to/your/repository/.bashrc ~/.bashrc
     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     ```
 
+0. [Клонируем](https://github.com/MichaelAquilina/zsh-you-should-use) плагин `you-should-use` туда же:
+    ```sh
+    git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
+    ```
+
 0. Создаём симлинк для `.zshrc`:
 
     ```sh
