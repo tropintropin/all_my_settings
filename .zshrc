@@ -72,7 +72,6 @@ ENABLE_CORRECTION="true"
 plugins=(
     git
     gitignore
-    globalias
     pip
     python
     web-search
