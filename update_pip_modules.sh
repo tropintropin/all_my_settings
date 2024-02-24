@@ -5,7 +5,10 @@
 echo "Начинаю проверку..."
 
 script_dir="$(dirname "$(readlink -f "$0")")"
-cd "$script_dir"
+if ! cd "$script_dir"; then
+  echo "Не удалось перейти в директорию скрипта: $script_dir"
+  exit  1
+fi
 
 outdated_packages=$(pip list -o)
 
