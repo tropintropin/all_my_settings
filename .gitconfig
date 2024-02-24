@@ -2,12 +2,34 @@
 	name = Valery Tropin
 	email = tropin.tropin@gmail.com
 [core]
-	editor = vim 
+	editor = vim
+[gui]
+	editor = code
+[help]
+    autocorrect = prompt
 [init]
 	defaultBranch = main
+[branch]
+    sort = -committerdate
+[diff]
+    algorithm = histogram
+[merge]
+    conflictStyle = zdiff3
+[fetch]
+    prune = true
+	pruneTags = true
+[push]
+    autoSetupRemote = true
+[core]
+    pager = delta
+# brew install git-delta less
+[delta]
+	line-numbers = true
 [alias]
 	GS = status
 	GP = push
 	GPR = pull --rebase
 	GA = add
 	GCM = commit -m
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
