@@ -140,6 +140,7 @@ alias l='ls -laF'
 
 # Python aliases
 alias python="python3"
+alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
 
 # Tmux aliases
 alias TMKS='tmux kill-server'
