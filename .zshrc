@@ -125,8 +125,10 @@ if [ "$OSTYPE" = "linux-gnu" ]; then
     alias bat='batcat'
 fi
 
-# Bottom aliases
-alias btm='bottom'
+# Bottom alias fir Linux
+if [ "$OSTYPE" = "linux-gnu" ]; then
+  alias btm='bottom'
+fi
 
 # Git aliases
 alias GS='git status'
