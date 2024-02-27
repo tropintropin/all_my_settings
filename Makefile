@@ -30,8 +30,12 @@ else ifeq ($(OS),Linux)
 else
 	$(call colorecho,"Неизвестная операционная система")
 endif
-	$(call colorecho,"Установка pyenv")
-	@if ! which pyenv > /dev/null; then \
-	$(call colorecho,"Установка pyenv"); \
-	curl https://pyenv.run | bash; \
-	fi
+ifeq ($(shell which pyenv > /dev/null  2>&1; echo $$?),  1)
+install_pyenv:
+	@$(call colorecho,"Установка pyenv")
+	@curl https://pyenv.run | bash
+else
+install_pyenv:
+	@$(call colorecho,"pyenv уже установлен")
+endif
+

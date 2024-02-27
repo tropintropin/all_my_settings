@@ -107,18 +107,6 @@ alias GCM='git commit -m'
 # ls alias
 alias l='ls -laF'
 
-# Python aliases
-echo 'Python versions in /usr/bin/:'
-l /usr/bin/ | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
-echo 'Python versions in /home/valery/.pyenv/versions/:'
-l /home/valery/.pyenv/versions/ | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | sort -u
-echo ''
-echo "Pyenv global version of Python is: $(pyenv which python | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')"
-echo ''
-
-alias python="python3"
-alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
-
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -126,6 +114,20 @@ eval "$(pyenv init -)"
 
 # pyenv-virtualenv
 eval "$(pyenv virtualenv-init -)"
+
+# Python aliases
+echo 'Python versions in /usr/bin/:'
+l /usr/bin/ | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
+echo 'Python versions in /usr/local/bin:'
+l /usr/local/bin | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
+echo 'Python versions in ~/.pyenv/versions/:'
+l ~/.pyenv/versions/ | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | sort -u
+echo ''
+echo "Pyenv global version of Python is: $(pyenv which python | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')"
+echo ''
+
+alias python="python3"
+alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
 
 # Tmux aliases
 alias TMKS='tmux kill-server'
