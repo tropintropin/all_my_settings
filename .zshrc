@@ -2,6 +2,7 @@
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 # CodeWhisperer pre block. Keep at the top of this file.
 [[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -11,54 +12,23 @@ export ZSH="$HOME/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Change the auto-update behavior:
+# disabled  # disable automatic updates
+# auto      # update automatically without asking
+# reminder  # just remind me to update when it's time
+zstyle ':omz:update' mode auto
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
+# Change how often to auto-update (in days).
 zstyle ':omz:update' frequency 14
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
+# Enable command auto-correction.
 ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
 # e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
 # Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -85,22 +55,15 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+# USER CONFIGURATION
+echo "Hello, $USER! Today is: $(date)\n"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
   export EDITOR='vim'
+else
+  export EDITOR='nano'
 fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set time for the right prompt
 RPROMPT='%*'
@@ -114,19 +77,20 @@ export YSU_MODE=ALL
 # For a full list of active aliases, run `alias`.
 
 # Config aliases
-alias zshconfig="nvim ~/.zshrc"
-alias ohmyzsh="nvim ~/.oh-my-zsh"
-alias bashconfig="nvim ~/.bashrc"
-alias gitconfig="nvim ~/.gitconfig"
-alias tmuxconfig="nvim ~/.tmux.conf"
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias bashconfig="vim ~/.bashrc"
+alias gitconfig="vim ~/.gitconfig"
+alias tmuxconfig="vim ~/.tmux.conf"
 
 # batcat alias for Linux
 if [ "$OSTYPE" = "linux-gnu" ]; then
     alias bat='batcat'
 fi
 
-# Bottom alias fir Linux
+# Bottom PATH and alias
 if [ "$OSTYPE" = "linux-gnu" ]; then
+  export PATH="$PATH:/snap/bin"
   alias btm='bottom'
 fi
 
@@ -144,8 +108,24 @@ alias GCM='git commit -m'
 alias l='ls -laF'
 
 # Python aliases
+echo 'Python versions in /usr/bin/:'
+l /usr/bin/ | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
+echo 'Python versions in /home/valery/.pyenv/versions/:'
+l /home/valery/.pyenv/versions/ | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | sort -u
+echo ''
+echo "Pyenv global version of Python is: $(pyenv which python | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')"
+echo ''
+
 alias python="python3"
 alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# pyenv-virtualenv
+eval "$(pyenv virtualenv-init -)"
 
 # Tmux aliases
 alias TMKS='tmux kill-server'
@@ -154,8 +134,10 @@ alias TMATMN='tmux attach || tmux new'
 alias TMA='tmux attach'
 alias TMN='tmux new'
 
+# Racket
 export PATH="/Applications/Racket v8.10/bin:$PATH"
 
+# NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
