@@ -2,7 +2,7 @@
 	name = Valery Tropin
 	email = tropin.tropin@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 [gui]
 	editor = code
 [help]
