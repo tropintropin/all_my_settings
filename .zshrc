@@ -151,5 +151,37 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     echo "SSH key added"
 fi
 
+# Youtube to .webp
+# Usage:
+# yt2webp "https://www.youtube.com/watch?v=..." "00:30" "01:45" "animation.webp"
+function yt2webp() {
+    # Проверяем количество аргументов
+    if [ "$#" -lt 4 ]; then
+        echo "Использование: yt2webp [URL] [start] [end] [output]"
+        echo "Пример: yt2webp https://youtube.com/... 00:30 01:45 output.webp"
+        return 1
+    fi
+
+    local url=$1
+    local start=$2
+    local end=$3
+    local output=$4
+
+    echo "🎥 Скачиваем и конвертируем видео..."
+    
+    yt-dlp -f "best[height<=1080]" --download-sections "*${start}-${end}" -o - "$url" | \
+    ffmpeg -i pipe:0 -vf "fps=24,scale=720:-1:flags=lanczos" \
+          -qscale 90 -quality 100 -loop 0 -compression_level 4 \
+          -preset picture -lossless 1 "$output"
+    
+    # Получаем размер файла
+    local filesize=$(stat -f%z "$output")
+    local filesizeMB=$(echo "scale=2; $filesize/1048576" | bc)
+    
+    echo "✨ Готово!"
+    echo "📁 Создан файл: $output"
+    echo "💾 Размер файла: ${filesizeMB}MB"
+}
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
