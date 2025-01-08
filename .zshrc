@@ -19,7 +19,10 @@ zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 14
 
 # Enable command auto-correction.
-ENABLE_CORRECTION="true"
+setopt correct
+
+# Enable autocd (automatic directory change).
+setopt autocd
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -32,21 +35,12 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-#
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/gitignore
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/pip
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/python
-# https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/web-search
-# https://github.com/zsh-users/zsh-autosuggestions
-#
+
 plugins=(
     git
     gitignore
     pip
     python
-    web-search
-    you-should-use
     zsh-autosuggestions
 )
 
@@ -65,20 +59,10 @@ fi
 # Set time for the right prompt
 RPROMPT='%*'
 
-# Settings for the zsh-you-should-use plugin:
-export YSU_MODE=ALL
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-
-# Config aliases
-alias zshconfig="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh"
-alias bashconfig="vim ~/.bashrc"
-alias gitconfig="vim ~/.gitconfig"
-alias tmuxconfig="vim ~/.tmux.conf"
 
 # batcat alias for Linux
 if [ "$OSTYPE" = "linux-gnu" ]; then
@@ -93,7 +77,6 @@ fi
 
 # Git aliases
 alias GS='git status'
-alias GSW='git swich'
 alias GP='git push'
 alias GF='git fetch'
 alias GPR='git pull --rebase'
@@ -113,16 +96,6 @@ eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
 # Python aliases
-echo 'Python versions in /usr/bin/:'
-l /usr/bin/ | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
-echo 'Python versions in /usr/local/bin:'
-l /usr/local/bin | grep -E -o 'python[[:digit:]]\.[[:digit:]]{2}' | sort -u
-echo 'Python versions in ~/.pyenv/versions/:'
-l ~/.pyenv/versions/ | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+' | sort -u
-echo ''
-echo "Pyenv global version of Python is: $(pyenv which python | grep -E -o '[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+')"
-echo ''
-
 alias python="python3"
 alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
 
@@ -141,6 +114,10 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Zed
+export PATH=$PATH:/Applications/Zed.app/Contents/MacOS
+alias zed='open -a "Zed"'
+
 # Verifies if running inside WSL;
 # if true, starts the SSH agent and adds the SSH key to it.
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
@@ -150,38 +127,6 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     ssh-add ~/.ssh/id_ed25519
     echo "SSH key added"
 fi
-
-# Youtube to .webp
-# Usage:
-# yt2webp "https://www.youtube.com/watch?v=..." "00:30" "01:45" "animation.webp"
-function yt2webp() {
-    # Проверяем количество аргументов
-    if [ "$#" -lt 4 ]; then
-        echo "Использование: yt2webp [URL] [start] [end] [output]"
-        echo "Пример: yt2webp https://youtube.com/... 00:30 01:45 output.webp"
-        return 1
-    fi
-
-    local url=$1
-    local start=$2
-    local end=$3
-    local output=$4
-
-    echo "🎥 Скачиваем и конвертируем видео..."
-    
-    yt-dlp -f "best[height<=1080]" --download-sections "*${start}-${end}" -o - "$url" | \
-    ffmpeg -i pipe:0 -vf "fps=24,scale=720:-1:flags=lanczos" \
-          -qscale 90 -quality 100 -loop 0 -compression_level 4 \
-          -preset picture -lossless 1 "$output"
-    
-    # Получаем размер файла
-    local filesize=$(stat -f%z "$output")
-    local filesizeMB=$(echo "scale=2; $filesize/1048576" | bc)
-    
-    echo "✨ Готово!"
-    echo "📁 Создан файл: $output"
-    echo "💾 Размер файла: ${filesizeMB}MB"
-}
 
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
