@@ -48,12 +48,8 @@ source $ZSH/oh-my-zsh.sh
 
 # USER CONFIGURATION
 echo "Hello, $USER! Today is: $(date)\n"
-echo "Your network information:"
-# NB! Requires jq to be installed.
-if ! curl -s ipinfo.io | jq; then
-  echo "Ошибка при получении сетевой информации или при обработке JSON. Убедитесь, что curl и jq установлены."
-  exit 1
-fi
+curl -s ipinfo.io
+echo "\n"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
