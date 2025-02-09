@@ -175,5 +175,8 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
     echo "SSH key added"
 fi
 
+# Add Rust to PATH
+. "$HOME/.cargo/env"
+
 # Amazon Q post block. Keep at the bottom of this file.
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/bashrc.post.bash"
