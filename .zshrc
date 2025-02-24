@@ -98,13 +98,13 @@ export NVM_DIR="$HOME/.nvm"
 # ========================
 
 # Preferred editor for local and remote sessions
-export EDITOR=$([[ -n $SSH_CONNECTION ]] && echo 'vim' || echo 'nano') # SSH: vim, Local: nano
+export EDITOR=$([[ -n $SSH_CONNECTION ]] && echo 'vim' || echo 'nvim') # SSH: vim, Local: nvim
 
 # Right prompt (time)
 RPROMPT='%*'  # Time in 24-hour format
 
 # Aliases
-alias l='ls -laFh' # List all files, long format, human-readable sizes, and append indicators
+alias l='ls -laFh --color=always | less -FRX' # List all files with color and less
 
 alias tmks='tmux kill-server' # Kill the server
 alias tmk='tmux kill-session -t' # Hint: tmk <session_name>
