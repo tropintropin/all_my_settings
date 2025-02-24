@@ -1,41 +1,29 @@
-# Amazon Q pre block. Keep at the top of this file.
+# ========================
+# AMAZON Q PRE-BLOCK
+# ========================
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-# Path to your oh-my-zsh installation.
+
+
+# ========================
+# OH-MY-ZSH SETUP
+# ========================
+
+# Path to oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+# Set name of the theme to load.
 ZSH_THEME="robbyrussell"
 
-# Change the auto-update behavior:
-# disabled  # disable automatic updates
-# auto      # update automatically without asking
-# reminder  # just remind me to update when it's time
+# Set list of themes to load
 zstyle ':omz:update' mode auto
-
-# Change how often to auto-update (in days).
 zstyle ':omz:update' frequency 14
 
-# Enable command auto-correction.
+# Enable command auto-correction and automatic directory change
 setopt correct
-
-# Enable autocd (automatic directory change).
 setopt autocd
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
 COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
+# Enable plugins
 plugins=(
     git
     gitignore
@@ -46,95 +34,87 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# USER CONFIGURATION
-echo "Hello, $USER! Today is: $(date)\n"
-curl -s ipinfo.io
-echo "\n"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nano'
+# ========================
+# OS-SPECIFIC CONFIGURATIONS
+# ========================
+
+# Check OS and set aliases
+if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then # WSL
+  echo "Running inside WSL"
+  eval "$(ssh-agent -s)" # Start SSH agent
+  echo "SSH agent started"
+  ssh-add ~/.ssh/id_ed25519 # Add SSH key
+  echo "SSH key added"
+elif [ "$OSTYPE" = "linux-gnu" ]; then # Linux
+  alias bat='batcat' # batcat alias for Linux
+  export PATH="$PATH:/snap/bin" # Add snap to PATH
+  alias btm='bottom' # bottom alias for Linux
+elif [[ "$OSTYPE" == darwin* ]]; then # macOS
+  export PATH="$PATH:/Applications/Zed.app/Contents/MacOS" # Add Zed to PATH
+  alias zed='open -a "Zed"' # Zed alias for macOS
+  eval "$(fzf --zsh)" # fzf key bindings
+
 fi
 
-# Set time for the right prompt
-RPROMPT='%*'
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# ========================
+# PYTHON & PACKAGE MANAGEMENT
+# ========================
 
-# batcat alias for Linux
-if [ "$OSTYPE" = "linux-gnu" ]; then
-    alias bat='batcat'
-fi
-
-# Bottom PATH and alias
-if [ "$OSTYPE" = "linux-gnu" ]; then
-  export PATH="$PATH:/snap/bin"
-  alias btm='bottom'
-fi
-
-# Git aliases
-alias GS='git status'
-alias GP='git push'
-alias GF='git fetch'
-alias GPR='git pull --rebase'
-alias GA='git add'
-alias GC='git commit'
-alias GCM='git commit -m'
-
-# ls alias
-alias l='ls -laF'
-
-# pyenv
+# pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# pyenv-virtualenv
+# pyenv-virtualenv setup
 eval "$(pyenv virtualenv-init -)"
 
 # Python aliases
 alias python="python3"
 alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
 
-# Tmux aliases
-alias TMKS='tmux kill-server'
-alias TMK='tmux kill-session -t'
-alias TMATMN='tmux attach || tmux new'
-alias TMA='tmux attach'
-alias TMN='tmux new'
+
+# ========================
+# DEVELOPMENT TOOLS
+# ========================
 
 # Racket
-export PATH="/Applications/Racket v8.10/bin:$PATH"
-
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Zed
-export PATH=$PATH:/Applications/Zed.app/Contents/MacOS
-alias zed='open -a "Zed"'
-
-# Verifies if running inside WSL;
-# if true, starts the SSH agent and adds the SSH key to it.
-if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-    echo "Running inside WSL"
-    eval "$(ssh-agent -s)"
-    echo "SSH agent started"
-    ssh-add ~/.ssh/id_ed25519
-    echo "SSH key added"
+if [ -d "/Applications/Racket v8.10/bin" ]; then
+  export PATH="/Applications/Racket v8.10/bin:$PATH"
 fi
 
 # Add Rust to PATH
 . "$HOME/.cargo/env"
 
-# fzf
-eval "$(fzf --zsh)"
+# NVM setup
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Amazon Q post block. Keep at the bottom of this file.
+
+# ========================
+# PREFERENCES & ALIASES
+# ========================
+
+# Preferred editor for local and remote sessions
+export EDITOR=$([[ -n $SSH_CONNECTION ]] && echo 'vim' || echo 'nano') # SSH: vim, Local: nano
+
+# Right prompt (time)
+RPROMPT='%*'  # Time in 24-hour format
+
+# Aliases
+alias l='ls -laFh' # List all files, long format, human-readable sizes, and append indicators
+
+alias tmks='tmux kill-server' # Kill the server
+alias tmk='tmux kill-session -t' # Hint: tmk <session_name>
+alias tmatmn='tmux attach || tmux new' # Attach to the last session or create a new one
+alias tma='tmux attach' # Attach to the last session
+alias tmls='tmux list-sessions' # List all sessions
+alias tmn='tmux new' # Create a new session
+
+
+# ========================
+# AMAZON Q POST-BLOCK
+# ========================
 [[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
