@@ -21,6 +21,19 @@ zstyle ':omz:update' frequency 14
 # Enable command auto-correction and automatic directory change
 setopt correct
 setopt autocd
+
+setopt prompt_subst
+
+# Shows the full command that will be executed in italics
+preexec() {
+    local cmd=${1%% *}
+    local expanded=$(alias "$cmd" 2>/dev/null)
+    if [[ -n $expanded ]]; then
+        print -P "\e[3m$expanded\e[0m\n"
+    fi
+}
+
+# Enable visual feedback during command completion
 COMPLETION_WAITING_DOTS="true"
 
 # Enable plugins
@@ -40,19 +53,18 @@ source $ZSH/oh-my-zsh.sh
 # ========================
 
 # Check OS and set aliases
-if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then # WSL
-  echo "Running inside WSL"
-  eval "$(ssh-agent -s)" # Start SSH agent
-  echo "SSH agent started"
-  ssh-add ~/.ssh/id_ed25519 # Add SSH key
-  echo "SSH key added"
-elif [ "$OSTYPE" = "linux-gnu" ]; then # Linux
-  alias bat='batcat' # batcat alias for Linux
+if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+  { eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519; } &>/dev/null # Start SSH agent & add SSH key if running in WSL
+  alias bat='batcat' # batcat alias
   export PATH="$PATH:/snap/bin" # Add snap to PATH
-  alias btm='bottom' # bottom alias for Linux
-elif [[ "$OSTYPE" == darwin* ]]; then # macOS
+  alias btm='bottom' # bottom alias
+elif [ "$OSTYPE" = "linux-gnu" ]; then
+  alias bat='batcat' # batcat alias
+  export PATH="$PATH:/snap/bin" # Add snap to PATH
+  alias btm='bottom' # bottom alias
+elif [[ "$OSTYPE" == darwin* ]]; then
   export PATH="$PATH:/Applications/Zed.app/Contents/MacOS" # Add Zed to PATH
-  alias zed='open -a "Zed"' # Zed alias for macOS
+  alias zed='open -a "Zed"' # Zed alias
   eval "$(fzf --zsh)" # fzf key bindings
 
 fi
@@ -85,7 +97,7 @@ if [ -d "/Applications/Racket v8.10/bin" ]; then
 fi
 
 # Add Rust to PATH
-. "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # NVM setup
 export NVM_DIR="$HOME/.nvm"
