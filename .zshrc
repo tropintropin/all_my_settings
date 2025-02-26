@@ -54,7 +54,14 @@ source $ZSH/oh-my-zsh.sh
 
 # Check OS and set aliases
 if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
-  { eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519; } &>/dev/null # Start SSH agent & add SSH key if running in WSL
+  # { eval "$(ssh-agent -s)" && ssh-add ~/.ssh/id_ed25519; } &>/dev/null # Start SSH agent & add SSH key if running in WSL
+  eval "$(ssh-agent -s)" &>/dev/null
+  ssh-add ~/.ssh/id_dev_wsl &>/dev/null
+  ssh-add ~/.ssh/id_prod_wsl &>/dev/null
+  ssh-add ~/.ssh/id_personal_wsl &>/dev/null
+  ssh-add -l &>/dev/null || {
+        echo "Проблема с загрузкой SSH-ключей"
+    }
   alias bat='batcat' # batcat alias
   export PATH="$PATH:/snap/bin" # Add snap to PATH
   alias btm='bottom' # bottom alias
