@@ -74,8 +74,7 @@ elif [ "$OSTYPE" = "linux-gnu" ]; then
 elif [[ "$OSTYPE" == darwin* ]]; then
   export PATH="$PATH:/Applications/Zed.app/Contents/MacOS" # Add Zed to PATH
   alias zed='open -a "Zed"' # Zed alias
-  eval "$(fzf --zsh)" # fzf key bindings
-
+  source <(fzf --zsh)
 fi
 
 
@@ -99,6 +98,11 @@ alias update-pip-list="~/all_my_settings/update_pip_modules.sh"
 # ========================
 # DEVELOPMENT TOOLS
 # ========================
+
+# ngrok
+if command -v ngrok &>/dev/null; then
+  source <(ngrok completion)
+fi
 
 # Racket
 if [ -d "/Applications/Racket v8.10/bin" ]; then
