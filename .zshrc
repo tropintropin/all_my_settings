@@ -58,6 +58,8 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
   alias bat='batcat' # batcat alias
   export PATH="$PATH:/snap/bin" # Add snap to PATH
   alias btm='bottom' # bottom alias
+  TELEGRAM_PATH='C:\\Users\\tropin\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe'
+  alias telegram="powershell.exe -Command \"Start-Process '$TELEGRAM_PATH'\""
 elif [ "$OSTYPE" = "linux-gnu" ]; then
   alias bat='batcat' # batcat alias
   export PATH="$PATH:/snap/bin" # Add snap to PATH
@@ -116,7 +118,12 @@ export EDITOR=$([[ -n $SSH_CONNECTION ]] && echo 'vim' || echo 'nvim') # SSH: vi
 RPROMPT='%*'  # Time in 24-hour format
 
 # Aliases
+alias c='clear'
+
 alias l='ls -laFh --color=always | less -FRX' # List all files with color and less
+
+alias settings='cd ~/all_my_settings'
+alias imandra='cd ~/imandra_guide_bot && gpr && code .'
 
 alias tmks='tmux kill-server' # Kill the server
 alias tmk='tmux kill-session -t' # Hint: tmk <session_name>
