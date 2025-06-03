@@ -128,6 +128,7 @@ alias c='clear'
 alias l='ls -laFh --color=always | less -FRX' # List all files with color and less
 
 alias t='tree --gitignore --dirsfirst'
+alias ta="tree --dirsfirst -aI '.git|.idea|.vscode|__pycache__|.DS_Store'"
 
 alias settings='cd ~/all_my_settings'
 
