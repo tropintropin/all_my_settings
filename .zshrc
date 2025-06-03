@@ -1,10 +1,4 @@
 # ========================
-# AMAZON Q PRE-BLOCK
-# ========================
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
-
-
-# ========================
 # OH-MY-ZSH SETUP
 # ========================
 
@@ -133,8 +127,9 @@ alias c='clear'
 
 alias l='ls -laFh --color=always | less -FRX' # List all files with color and less
 
+alias t='tree --gitignore --dirsfirst'
+
 alias settings='cd ~/all_my_settings'
-alias imandra='cd ~/imandra_guide_bot && gpr && code .'
 
 alias tmks='tmux kill-server' # Kill the server
 alias tmk='tmux kill-session -t' # Hint: tmk <session_name>
@@ -142,9 +137,3 @@ alias tmatmn='tmux attach || tmux new' # Attach to the last session or create a 
 alias tma='tmux attach' # Attach to the last session
 alias tmls='tmux list-sessions' # List all sessions
 alias tmn='tmux new' # Create a new session
-
-
-# ========================
-# AMAZON Q POST-BLOCK
-# ========================
-[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
