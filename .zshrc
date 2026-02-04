@@ -61,6 +61,7 @@ if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
   alias btm='bottom' # bottom alias
   TELEGRAM_PATH='C:\\Users\\tropin\\AppData\\Roaming\\Telegram Desktop\\Telegram.exe'
   alias telegram="powershell.exe -Command \"Start-Process '$TELEGRAM_PATH'\""
+  alias deploy_tropin_one='~/all_my_settings/.raycast/scripts/deploy_tropin.one.sh' # Deploy tropin.one site to production
 elif [ "$OSTYPE" = "linux-gnu" ]; then
   alias bat='batcat' # batcat alias
   export PATH="$PATH:/snap/bin" # Add snap to PATH
