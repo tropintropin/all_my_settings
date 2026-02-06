@@ -139,3 +139,15 @@ alias tmatmn='tmux attach || tmux new' # Attach to the last session or create a 
 alias tma='tmux attach' # Attach to the last session
 alias tmls='tmux list-sessions' # List all sessions
 alias tmn='tmux new' # Create a new session
+
+# Functions
+
+# To make a GIF from a video
+# For all videos in the current directory do:
+# for f in *.mp4; do makegif "$f"; done
+# For a single video do:
+# makegif <video_file>
+makegif() {
+    ffmpeg -i "$1" -vf "scale='min(480,iw)':-1" -c:v libvpx-vp9 -crf 35 -b:v 0 -an "${1%.*}.webm" && \
+    ffmpeg -i "$1" -frames:v 1 -q:v 50 "${1%.*}-poster.webp"
+}
