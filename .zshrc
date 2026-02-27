@@ -69,6 +69,7 @@ elif [ "$OSTYPE" = "linux-gnu" ]; then
 elif [[ "$OSTYPE" == darwin* ]]; then
   export PATH="$PATH:/Applications/Zed.app/Contents/MacOS" # Add Zed to PATH
   alias zed='open -a "Zed"' # Zed alias
+  alias e='eza -la --group-directories-first --total-size --git --no-time --no-user' # eza alias
   source <(fzf --zsh)
 fi
 
