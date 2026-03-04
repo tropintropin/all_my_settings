@@ -1,0 +1,9 @@
+# type(scope): short description
+
+# [Why: reason, not what]
+
+# BREAKING CHANGE: [what breaks and how to migrate]
+
+# Refs: [#123, https://...]
+
+# [Types: feat fix docs style refactor perf test chore build ci]
