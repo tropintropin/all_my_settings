@@ -8,9 +8,7 @@ export ZSH="$HOME/.oh-my-zsh"
 # Set name of the theme to load.
 ZSH_THEME="robbyrussell"
 
-# Set list of themes to load
-zstyle ':omz:update' mode auto
-zstyle ':omz:update' frequency 14
+zstyle ':omz:update' mode disabled
 
 # Enable command auto-correction and automatic directory change
 setopt correct
@@ -110,8 +108,16 @@ fi
 
 # NVM setup
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+lazy_nvm() {
+    unset -f node npm npx nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+}
+
+node() { lazy_nvm; node "$@"; }
+npm() { lazy_nvm; npm "$@"; }
+npx() { lazy_nvm; npx "$@"; }
+nvm() { lazy_nvm; nvm "$@"; }  # This lazy loads nvm
 
 
 # ========================
