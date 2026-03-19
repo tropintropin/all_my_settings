@@ -158,3 +158,35 @@ makegif() {
     ffmpeg -i "$1" -vf "scale='min(480,iw)':-1" -c:v libvpx-vp9 -crf 35 -b:v 0 -an "${1%.*}.webm" && \
     ffmpeg -i "$1" -frames:v 1 -q:v 50 "${1%.*}-poster.webp"
 }
+
+# ff — fuzzy file finder with preview
+ff() {
+  local file
+  file=$(rg --files ${1:-.} | fzf \
+    --preview 'bat --color=always {}' \
+    --preview-window='right:60%:wrap' \
+    --bind 'ctrl-/:toggle-preview' \
+    --prompt='files > ')
+  [[ -n "$file" ]] && ${EDITOR:-vim} "$file"
+}
+
+# rff — interactive live grep with preview, opens at matched line
+rff() {
+  local result
+  result=$(rg --line-number --color=always '' ${1:-.} | fzf \
+    --ansi \
+    --phony \
+    --bind 'change:reload:rg --line-number --color=always {q} '"${1:-.}"' || true' \
+    --delimiter=: \
+    --preview 'bat --color=always --highlight-line {2} {1}' \
+    --preview-window='right:60%:+{2}-5:wrap' \
+    --bind 'ctrl-/:toggle-preview' \
+    --prompt='grep > ')
+
+  if [[ -n "$result" ]]; then
+    local file line
+    file=$(echo "$result" | cut -d: -f1)
+    line=$(echo "$result" | cut -d: -f2)
+    ${EDITOR:-vim} "$file" +"$line"
+  fi
+}
